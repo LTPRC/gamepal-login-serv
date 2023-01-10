@@ -41,23 +41,19 @@ public class UserServiceImpl implements UserService {
             while ((str = br.readLine()) != null) {
                 listString += str;
             }
-            req = (JSONObject) JSONObject.parse(listString);
+            req = JSON.parseObject(listString);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1002));
         }
-        if (null == req || !req.containsKey("body")) {
-            return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1003));
-        }
-        JSONObject body = (JSONObject) JSONObject.parse((String) req.get("body"));
 
         UserInfo userInfo = new UserInfo();
         String userCode = UUID.randomUUID().toString();
         if (userInfoRepository.queryUserInfoByUserCode(userCode).isEmpty()) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1001));
         }
-        String username = body.getString("username");
+        String username = req.getString("username");
         userInfo.setUsername(username);
-        String password = body.getString("password");
+        String password = req.getString("password");
         userInfo.setPassword(password);
 
         if (!userInfoRepository.queryUserInfoByUsername(username).isEmpty()) {
@@ -86,15 +82,11 @@ public class UserServiceImpl implements UserService {
             while ((str = br.readLine()) != null) {
                 listString += str;
             }
-            req = (JSONObject) JSONObject.parse(listString);
+            req = JSON.parseObject(listString);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1002));
         }
-        if (null == req || !req.containsKey("body")) {
-            return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1003));
-        }
-        JSONObject body = JSON.parseObject(req.getString("body"));
-        String userCode = body.getString("userCode");
+        String userCode = req.getString("userCode");
         userInfoRepository.deleteUserInfoByUserCode(userCode);
 
         rst.put("userCode", userCode);
@@ -112,16 +104,12 @@ public class UserServiceImpl implements UserService {
             while ((str = br.readLine()) != null) {
                 listString += str;
             }
-            req = (JSONObject) JSONObject.parse(listString);
+            req = JSON.parseObject(listString);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1002));
         }
-        if (null == req || !req.containsKey("body")) {
-            return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1003));
-        }
-        JSONObject body = JSON.parseObject(req.getString("body"));
-        String username = body.getString("username");
-        String password = body.getString("password");
+        String username = req.getString("username");
+        String password = req.getString("password");
         List<UserInfo> userInfoList = userInfoRepository.queryUserInfoByUsernameAndPassword(username, password);
         if (userInfoList.isEmpty()) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1005));
@@ -153,16 +141,12 @@ public class UserServiceImpl implements UserService {
             while ((str = br.readLine()) != null) {
                 listString += str;
             }
-            req = (JSONObject) JSONObject.parse(listString);
+            req = JSON.parseObject(listString);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1002));
         }
-        if (null == req || !req.containsKey("body")) {
-            return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1003));
-        }
-        JSONObject body = JSON.parseObject(req.getString("body"));
-        String userCode = body.getString("userCode");
-        String token = body.getString("token");
+        String userCode = req.getString("userCode");
+        String token = req.getString("token");
         if (token.equals(ServerUtil.tokenMap.get(userCode))) {
             ServerUtil.tokenMap.remove(userCode);
             ServerUtil.onlineMap.remove(userCode);
