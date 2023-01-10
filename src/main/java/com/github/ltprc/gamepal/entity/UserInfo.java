@@ -12,8 +12,8 @@ public class UserInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "userId", nullable = false)
-    private String userId;
+    @Column(name = "userCode", nullable = false)
+    private String userCode;
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
@@ -32,11 +32,11 @@ public class UserInfo {
         super();
     }
 
-    public UserInfo(Long id, String userId, String username, String password, Integer status, String timeCreated,
+    public UserInfo(Long id, String userCode, String username, String password, Integer status, String timeCreated,
             String timeUpdated) {
         super();
         this.id = id;
-        this.userId = userId;
+        this.userCode = userCode;
         this.username = username;
         this.password = password;
         this.status = status;
@@ -52,12 +52,12 @@ public class UserInfo {
         this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserCode() {
+        return userCode;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getUsername() {

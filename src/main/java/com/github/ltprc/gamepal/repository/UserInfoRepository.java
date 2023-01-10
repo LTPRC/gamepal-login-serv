@@ -10,16 +10,19 @@ import com.github.ltprc.gamepal.entity.UserInfo;
 
 public interface UserInfoRepository extends JpaRepository<UserInfo, Long> {
 
-    @Query(value = "select new UserInfo(id, userId, username, password, status, timeCreated, timeUpdated) from UserInfo where id=:id")
+    @Query(value = "select new UserInfo(id, userCode, username, password, status, timeCreated, timeUpdated) from UserInfo where id=:id")
     public List<UserInfo> queryUserInfoById(@Param("id") Long id);
 
-    @Query(value = "select new UserInfo(id, userId, username, password, status, timeCreated, timeUpdated) from UserInfo where userId=:userId")
-    public List<UserInfo> queryUserInfoByUserid(@Param("userId") String userId);
+    @Query(value = "select new UserInfo(id, userCode, username, password, status, timeCreated, timeUpdated) from UserInfo where userCode=:userCode")
+    public List<UserInfo> queryUserInfoByUserCode(@Param("userCode") String userCode);
 
-    @Query(value = "select new UserInfo(id, userId, username, password, status, timeCreated, timeUpdated) from UserInfo where username=:username")
+    @Query(value = "select new UserInfo(id, userCode, username, password, status, timeCreated, timeUpdated) from UserInfo where username=:username")
     public List<UserInfo> queryUserInfoByUsername(@Param("username") String username);
 
-    @Query(value = "select new UserInfo(id, userId, username, password, status, timeCreated, timeUpdated) from UserInfo where username=:username and password=:password")
+    @Query(value = "select new UserInfo(id, userCode, username, password, status, timeCreated, timeUpdated) from UserInfo where username=:username and password=:password")
     public List<UserInfo> queryUserInfoByUsernameAndPassword(@Param("username") String username,
             @Param("password") String password);
+
+    @Query(value = "delete from UserInfo where userCode=:userCode")
+    public List<UserInfo> deleteUserInfoByUserCode(@Param("userCode") String userCode);
 }

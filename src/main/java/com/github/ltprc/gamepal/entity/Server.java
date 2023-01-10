@@ -9,8 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.lang.NonNull;
 
-import com.github.ltprc.gamepal.exception.BusinessException;
-
 public class Server {
 
     private static final int MAX_PLAYER_NUMBER = 100;
@@ -47,7 +45,7 @@ public class Server {
         return playerMap;
     }
 
-    public static boolean isLoggedIn(@NonNull HttpServletRequest request) throws BusinessException {
+    public static boolean isLoggedIn(@NonNull HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return null != session && sessionMap.containsKey(session.getId());
     }
