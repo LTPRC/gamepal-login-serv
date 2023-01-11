@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -29,6 +30,7 @@ import com.github.ltprc.gamepal.service.UserService;
 import com.github.ltprc.gamepal.util.ContentUtil;
 import com.github.ltprc.gamepal.util.ErrorUtil;
 
+@Transactional
 @Component
 public class UserServiceImpl implements UserService {
 
@@ -37,9 +39,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    private Map<String, Session> sessionMap = new ConcurrentHashMap<>(); // userId, session
     private Map<String, String> tokenMap = new ConcurrentHashMap<>(); // userId, token
     private LinkedHashMap<String, Long> onlineMap = new LinkedHashMap<>(); // userId, timestamp
-    private Map<String, Session> sessionMap = new ConcurrentHashMap<>(); // userId, session
 
     @Override
     public ResponseEntity<String> registerAccount(HttpServletRequest request) {

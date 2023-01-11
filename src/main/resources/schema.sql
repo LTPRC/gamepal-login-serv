@@ -1,4 +1,4 @@
-DROP TABLE `user_info`;
+-- DROP TABLE `user_info`;
 CREATE TABLE if not exists `user_info` (
 `id` long not null auto_increment,
 `user_code` varchar(36) unique not null,
