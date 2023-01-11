@@ -1,14 +1,29 @@
 package com.github.ltprc.gamepal.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 public class ContentUtil {
+
+    public static JSONObject request2JSONObject(HttpServletRequest request) throws IOException {
+        BufferedReader br = request.getReader();
+        String str = "";
+        String listString = "";
+        while ((str = br.readLine()) != null) {
+            listString += str;
+        }
+        return JSON.parseObject(listString);
+    }
 
     public static JSONObject jsonFile2JSONObject(String filePath) {
         try {

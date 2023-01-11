@@ -9,4 +9,8 @@ public class ErrorUtil {
     public static final GamepalError ERROR_1004 = new GamepalError("1004", "Username is already taken.");
     public static final GamepalError ERROR_1005 = new GamepalError("1005", "Invalid username or password.");
     public static final GamepalError ERROR_1006 = new GamepalError("1006", "Expired token.");
+    public static final GamepalError ERROR_1007 = new GamepalError("1007", "Token not found.");
+    public static final GamepalError ERROR_1008 = new GamepalError("1008", "Invalid request format.");
+    public static final GamepalError ERROR_1009 = new GamepalError("1009", "Message receiver is not online.");
+    public static final GamepalError ERROR_1010 = new GamepalError("1010", "Sending message failed.");
 }
