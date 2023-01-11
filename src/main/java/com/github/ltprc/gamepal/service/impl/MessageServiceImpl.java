@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -25,7 +25,7 @@ import com.github.ltprc.gamepal.service.UserService;
 import com.github.ltprc.gamepal.util.ContentUtil;
 import com.github.ltprc.gamepal.util.ErrorUtil;
 
-@Component
+@Service
 public class MessageServiceImpl implements MessageService {
 
     private static final Map<String, Queue<Message>> chatMap = new ConcurrentHashMap<>(); // uuid, message queue
