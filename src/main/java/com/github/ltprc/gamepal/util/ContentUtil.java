@@ -22,7 +22,14 @@ public class ContentUtil {
         while ((str = br.readLine()) != null) {
             listString += str;
         }
-        return JSON.parseObject(listString);
+        JSONObject req = JSON.parseObject(listString);
+        return req.getJSONObject("body");
+    }
+
+    public static JSONObject generateRst() {
+        JSONObject rst = new JSONObject();
+        rst.put("code", ErrorUtil.CODE_SUCCESS);
+        return rst;
     }
 
     public static JSONObject jsonFile2JSONObject(String filePath) {

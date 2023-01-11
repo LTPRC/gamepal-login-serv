@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> registerAccount(HttpServletRequest request) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         JSONObject req = null;
         try {
             req = ContentUtil.request2JSONObject(request);
@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 
         UserInfo userInfo = new UserInfo();
         String userCode = UUID.randomUUID().toString();
-        if (userInfoRepository.queryUserInfoByUserCode(userCode).isEmpty()) {
+        if (!userInfoRepository.queryUserInfoByUserCode(userCode).isEmpty()) {
             return ResponseEntity.badRequest().body(JSON.toJSONString(ErrorUtil.ERROR_1001));
         }
         String username = req.getString("username");
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> cancelAccount(HttpServletRequest request) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         JSONObject req = null;
         try {
             req = ContentUtil.request2JSONObject(request);
@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> login(HttpServletRequest request) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         JSONObject req = null;
         try {
             req = ContentUtil.request2JSONObject(request);
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ResponseEntity<String> logoff(HttpServletRequest request) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         JSONObject req = null;
         try {
             req = ContentUtil.request2JSONObject(request);

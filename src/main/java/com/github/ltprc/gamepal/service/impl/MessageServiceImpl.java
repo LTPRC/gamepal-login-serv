@@ -56,7 +56,7 @@ public class MessageServiceImpl implements MessageService {
      * @param message
      */
     private ResponseEntity sendMessage(@PathParam("userCode") String userCode, String message) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         Session session = userService.getSessionByUserCode(userCode);
         if (null == session) {
             logger.warn(ErrorUtil.ERROR_1009 + "userCode: " + userCode);
@@ -77,7 +77,7 @@ public class MessageServiceImpl implements MessageService {
      * @param message
      */
     private ResponseEntity sendMessageToAll(String message) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         for (Entry<String, Session> entry : userService.getSessionEntrySet()) {
             try {
                 entry.getValue().getBasicRemote().sendText(message);
@@ -90,7 +90,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     private String generateReplyContent(String userCode) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         rst.put("userCode", userCode);
         // Update token automatically
         String token = userService.updateTokenByUserCode(userCode);
@@ -108,7 +108,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public ResponseEntity sendMessage(HttpServletRequest request) {
-        JSONObject rst = new JSONObject();
+        JSONObject rst = ContentUtil.generateRst();
         JSONObject req = null;
         try {
             req = ContentUtil.request2JSONObject(request);
